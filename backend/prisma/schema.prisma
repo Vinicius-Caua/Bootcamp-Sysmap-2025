@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Models 
+
+model User {
+  id        String    @id @default(uuid())
+  name      String
+  email     String    @unique
+  cpf       String    @unique
+  password  String
+  avatar    String? // @default() // Avatar Default, if user don't have avatar
+  xp        Int       @default(0)
+  level     Int       @default(1)
+  deletedAt DateTime?
+
+  userAchievements    UserAchievement[]
+  createdActivities   Activity[]            @relation("CreateActivity") // Activities created by the user
+  Preference          Preference[]
+  ActivityParticipant ActivityParticipant[]
+
+  @@map("Users")
+}
+
+model Achievement {
+  id        String @id @default(uuid())
+  name      String @unique
+  criterion String
+
+  userAchievements UserAchievement[]
+
+  @@map("Achievements")
+}
+
+model UserAchievement {
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  achievementId String
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+
+  @@unique([achievementId, userId], name: "UserAchievement_unique_constraint") // Composite Primary Key 
+  @@map("UserAchievements")
+}
+
+model Activity {
+  id               String       @id @default(uuid())
+  title            String       @unique
+  description      String
+  type             ActivityType @relation(fields: [typeId], references: [id])
+  typeId           String
+  confirmationCode String
+  image            String?
+  scheduledDate    DateTime
+  createdAt        DateTime     @default(now())
+  deletedAt        DateTime?
+  completedAt      DateTime?
+  private          Boolean      @default(false)
+  creator          User         @relation("CreateActivity", fields: [creatorId], references: [id])
+  creatorId        String
+
+  address             ActivityAddress?
+  ActivityParticipant ActivityParticipant[]
+
+  @@map("Activities")
+}
+
+model ActivityAddress {
+  id         String   @id @default(uuid())
+  activity   Activity @relation(fields: [activityId], references: [id])
+  activityId String   @unique
+  latitude   Float
+  longitude  Float
+
+  @@map("ActivityAddresses")
+}
+
+model Preference {
+  user         User         @relation(fields: [userId], references: [id])
+  userId       String
+  activityType ActivityType @relation(fields: [typeId], references: [id])
+  typeId       String
+
+  @@id([userId, typeId]) // Composite Primary Key
+  @@map("Preferences")
+}
+
+model ActivityParticipant {
+  activity    Activity  @relation(fields: [activityId], references: [id])
+  activityId  String
+  user        User      @relation(fields: [userId], references: [id])
+  userId      String
+  approved    Boolean?
+  confirmedAt DateTime?
+
+  @@unique([activityId, userId], name: "ActivityParticipant_unique_constraint") // Composite Primary Key
+  @@map("ActivityParticipants")
+}
+
+model ActivityType {
+  id          String  @id @default(uuid())
+  name        String
+  description String
+  image       String?
+
+  Activity   Activity[]
+  Preference Preference[]
+
+  @@map("ActivityTypes")
+}

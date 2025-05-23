@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme inline {
+  --color-primary-500: var(--primary-500);
+  --color-primary-600: var(--primary-600);
+  --color-danger: var(--danger);
+  --color-border: var(--border);
+  --color-border-focus: var(--border-focus);
+  --color-title: var(--title);
+  --color-text: var(--text);
+  --color-placeholder: var(--placeholder);
+  --color-white: var(--white);
+  --font-bebas: "Bebas Neue", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+}
+
+:root {
+  --border: oklch(92.19% 0 0);
+  --border-focus: oklch(86.99% 0 0);
+  --title: oklch(20.46% 0 0);
+  --text: oklch(37.15% 0 0);
+  --placeholder: oklch(70.9% 0 0);
+  --danger: oklch(58.3% 0.239 28.48);
+  --primary-500: oklch(70.19% 0.158 160.44);
+  --primary-600: oklch(60.31% 0.134 160.92);
+  --white: oklch(100% 0 0);
+}
+
+@layer base {
+  body {
+    @apply bg-white text-text text-[16px] leading-5 font-sans;
+  }
+  h1 {
+    @apply text-[32px] leading-8 font-bebas text-title;
+  }
+}
+
+@layer utilities {
+  .container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
