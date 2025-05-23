@@ -1,4 +1,4 @@
-# Feet Meet - Plataforma de Atividades Físicas
+# Fit Meet - Plataforma de Atividades Físicas
 
 ![Feet Meet Logo](src/assets/complete-logo.svg)
 
