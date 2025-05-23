@@ -16,7 +16,7 @@
 
 ## 📖 Apresentação do Projeto
 
-O **Feet Meet** é uma plataforma web desenvolvida para conectar pessoas interessadas em atividades físicas. A aplicação permite que usuários criem, gerenciem e participem de atividades esportivas, promovendo um estilo de vida saudável e colaborativo.
+O **Fit Meet** é uma plataforma web desenvolvida para conectar pessoas interessadas em atividades físicas. A aplicação permite que usuários criem, gerenciem e participem de atividades esportivas, promovendo um estilo de vida saudável e colaborativo.
 
 ### Principais Recursos:
 - **Criação de Atividades**: Crie eventos com título, descrição, data, local e tipo de atividade.
